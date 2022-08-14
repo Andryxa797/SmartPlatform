@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthService } from "./Auth/Auth";
+import { AuthService } from "./auth/auth";
 
 const API = axios.create({
     baseURL: 'http://127.0.0.1:8000/',
@@ -16,7 +16,7 @@ API.interceptors.response.use((config) => {
 }, async (error) => {
     try {
         const originRequest = error.config;
-        if (error.response.status === 401) {
+        if (error.response.status === 401 && localStorage.getItem("_refresh")) {
             AuthService.refresh()
                 .then(() => {API.request(originRequest)})
                 .catch(() => { })

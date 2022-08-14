@@ -1,0 +1,125 @@
+.home-title {
+    text-transform: uppercase;
+    font-size: 40px;
+    margin-top: 0;
+    margin: 50px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.home-devices-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.home-devices-card-wrapper {
+    width: 33.3%;
+    min-width: 400px;
+    height: 400px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.home-devices-card {
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.home-devices-card__preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.home-devices-card__preview-wrapper {
+    width: 250px;
+    height: 250px;
+
+}
+
+.home-devices-card__preview-img {
+    width: 250px;
+    height: 250px;
+    transition: all .2s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+.home-devices-card__title {
+    text-align: center;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 700;
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.home-devices-card__buttons-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-devices-card__buttons-item {
+    width: 45%;
+}
+
+.home-devices-card__new-wrapper {
+    width: 100%;
+    height: 400px;
+    background-color: #fafafaa3;
+    border: 2px dashed #d9d9d9;
+    border-radius: 10px;
+    &:hover{
+        color: #1890ff;
+        border-color: #1890ff;
+        cursor: pointer;
+    }
+}
+.home-devices-card__new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-devices-card__new-icon {
+    display: block;
+    font-size: 120px;
+    padding: 80px;
+}
+
+
+
+
+.home-devices-card__new-title {
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 700;
+    user-select: none;
+}
+
+.home-devices-card-new {
+    @extend .home-devices-card;
+}
+
+@media screen and (max-width: 1400px) {
+    .home-devices-card-wrapper {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .home-devices-card-wrapper {
+        width: 100%;
+    }
+}

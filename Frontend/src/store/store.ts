@@ -1,10 +1,12 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import authReducer from './slices/auth'
 import appReducer from './slices/app'
+import devicesReducer from './slices/devices'
 
 const rootReducer = combineReducers({
     authReducer,
     appReducer,
+    devicesReducer
 })
 
 export const setupStore = () => {

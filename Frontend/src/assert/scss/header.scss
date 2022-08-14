@@ -1,0 +1,54 @@
+.header {
+    width: 100%;
+    height: 64px;
+    background: #343a40;
+}
+
+.header-container {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    padding: 10px 0;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo__title {
+    font-size: 1.75em;
+    color: #fed136;
+    font-family: Kaushan;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.header-auth {
+    color: hsla(0, 0%, 100%, .5);
+    font-size: 1.25em;
+}
+
+.header-auth__general {
+    color: #fff;
+}
+
+.header-auth__general-name {
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+.header-auth__logout {
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

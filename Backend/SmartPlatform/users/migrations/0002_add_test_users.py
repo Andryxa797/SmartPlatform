@@ -19,7 +19,6 @@ def load_admin(apps, schema_editor):
 
 
 def load_test_user_with_device(apps, schema_editor):
-
     user = User.objects.create(
         email='test_user@test.test',
         username='test_user',
@@ -32,8 +31,12 @@ def load_test_user_with_device(apps, schema_editor):
     profile_type_test.save()
 
     device_type = apps.get_model("users", "Device")
-    device_type_test = device_type.objects.create(owner_id=user.id, name="Тестовое устройство")
+    device_type_test = device_type.objects.create(owner_id=user.id, name="Тестовое устройство", wifi_name="TP_Link1602",
+                                                  wifi_password="31670456")
+    device_type_admin = device_type.objects.create(owner_id=1, name="Тестовое устройство", wifi_name="TP_Link1602",
+                                                   wifi_password="31670456")
     device_type_test.save()
+    device_type_admin.save()
 
 
 class Migration(migrations.Migration):
@@ -45,4 +48,3 @@ class Migration(migrations.Migration):
         migrations.RunPython(load_admin),
         migrations.RunPython(load_test_user_with_device),
     ]
-

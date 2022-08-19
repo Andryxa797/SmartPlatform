@@ -18,7 +18,7 @@ API.interceptors.response.use((config) => {
         const originRequest = error.config;
         if (error.response.status === 401 && localStorage.getItem("_refresh")) {
             AuthService.refresh()
-                .then(() => {API.request(originRequest)})
+                .then(() => { API.request(originRequest) })
                 .catch(() => { })
         }
     } catch (e) {

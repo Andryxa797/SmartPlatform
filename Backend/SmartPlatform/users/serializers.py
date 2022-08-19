@@ -18,4 +18,4 @@ class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = '__all__'
-        read_only_fields = ('uuid', 'owner')
+        read_only_fields = ('id', 'uuid_public', 'uuid_private', 'owner', 'avatar', 'create_date')

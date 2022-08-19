@@ -1,12 +1,25 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Popconfirm } from "antd";
+import { Button, notification, Popconfirm } from "antd";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { RoutesPath } from "../../helpers/routes-path";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
-import { startUpdateDevice } from "../../store/slices/devices";
+import {
+  deleteMyDevicesAsync,
+  startCreateDevice,
+  startUpdateDevice,
+} from "../../store/slices/devices";
 import processorPNG from "./../../assert/image/electronic-icon/processor.png";
+import { HomeModalDeviceCreate } from "./modal/HomeModalDeviceCreate";
 import { HomeModalDeviceUpdate } from "./modal/HomeModalDeviceUpdate";
 export const Home = () => {
-  const { devices } = useAppSelector((reducer) => reducer.devicesReducer);
-  const dispatch = useAppDispatch()
+  const { devices, loadingDelete, errorFlag, showCreateDevice, showUpdateDevice } = useAppSelector(
+    (reducer) => reducer.devicesReducer
+  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    errorFlag !== null && notification.error({ message: "Произошла ошибка!" });
+  }, [errorFlag]);
   return (
     <>
       <div className="home">
@@ -18,28 +31,36 @@ export const Home = () => {
             <div className="home-devices-card">
               <div className="home-devices-card__preview-container">
                 <div className="home-devices-card__preview-wrapper">
-                  <img
-                    src={processorPNG}
-                    alt=""
-                    className="home-devices-card__preview-img"
-                  />
+                  <Link className="home-devices-card__title-link" to={RoutesPath.DeviceURL(device.id)}>
+                    <img
+                      src={processorPNG}
+                      alt=""
+                      className="home-devices-card__preview-img"
+                    />
+                    </Link>
                 </div>
               </div>
               <div className="home-devices-card__title">
-                {device.name}
-              </div>
+                <Link className="home-devices-card__title-link" to={RoutesPath.DeviceURL(device.id)}>{device.name}</Link>
+                </div>
               <div className="home-devices-card__buttons-wrapper">
-                <Button className="home-devices-card__buttons-item" onClick={()=>dispatch(startUpdateDevice(device))}>
+                <Button
+                  className="home-devices-card__buttons-item"
+                  onClick={() => dispatch(startUpdateDevice(device))}
+                >
                   Изменить
                 </Button>
                 <Popconfirm
                   title="Вы деиствительно хотите удалить устройство?"
-                  onConfirm={() => {}}
+                  onConfirm={() => dispatch(deleteMyDevicesAsync(device))}
                   onCancel={() => {}}
                   okText="Да"
                   cancelText="Нет"
                 >
-                  <Button className="home-devices-card__buttons-item">
+                  <Button
+                    className="home-devices-card__buttons-item"
+                    loading={loadingDelete}
+                  >
                     Удалить
                   </Button>
                 </Popconfirm>
@@ -47,9 +68,11 @@ export const Home = () => {
             </div>
           </div>
         ))}
-
         <div className="home-devices-card-wrapper">
-          <div className="home-devices-card__new-wrapper">
+          <div
+            className="home-devices-card__new-wrapper"
+            onClick={() => dispatch(startCreateDevice())}
+          >
             <div className="home-devices-card__new ">
               <PlusOutlined className="home-devices-card__new-icon" />
               <div className="home-devices-card__new-title">
@@ -59,7 +82,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <HomeModalDeviceUpdate />
+      {showUpdateDevice && <HomeModalDeviceUpdate />}
+      {showCreateDevice && <HomeModalDeviceCreate />}
     </>
   );
 };

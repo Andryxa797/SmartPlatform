@@ -20,7 +20,7 @@ export const Header = () => {
             <div className='header-container'>
                 <div className='header-logo'>
                     <Logo />
-                    <div className='header-logo__title' onClick={()=><Link to={RoutesPath.Home} />}>SmartPlatform</div>
+                    <Link to={RoutesPath.Home} className='header-logo__title_link'>SmartPlatform</Link>
                 </div>
                 {isLogin && <div className='header-auth'>
                     Добро пожаловать, <span className='header-auth__general'>

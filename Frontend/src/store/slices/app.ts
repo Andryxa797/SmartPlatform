@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 import { refreshAsync } from "./auth";
 import { getMyDevicesAsync } from "./devices";
 
@@ -13,7 +14,10 @@ const initialState: IInitialState = {
 
 export const initAppAsync = createAsyncThunk("app/init", async (_, thunkAPI) => {
   await thunkAPI.dispatch(refreshAsync())
-  await thunkAPI.dispatch(getMyDevicesAsync())
+  const state = thunkAPI.getState() as RootState
+   if(state?.authReducer?.isLogin){
+    await thunkAPI.dispatch(getMyDevicesAsync())
+   }
 });
 export const appSlice = createSlice({
   name: "app",
@@ -35,6 +39,5 @@ export const appSlice = createSlice({
     })
   },
 });
-
 export default appSlice.reducer;
 export const {reinitializeApp} = appSlice.actions

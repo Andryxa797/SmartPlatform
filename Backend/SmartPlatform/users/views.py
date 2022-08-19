@@ -1,5 +1,8 @@
-from rest_framework.generics import RetrieveUpdateAPIView, get_object_or_404, ListAPIView
+from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView, get_object_or_404, ListAPIView, RetrieveUpdateDestroyAPIView, \
+    CreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from users.models import Profile, Device
 from users.permissions import IsOwnerProfileOrReadOnly
@@ -32,3 +35,35 @@ class MyDevicesView(ListAPIView):
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Device.objects.filter(owner_id=self.request.user.id)
+
+
+class RetrieveUpdateDestroyDeviceView(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
+    serializer_class = DeviceSerializer
+
+    def get_object(self):
+        if self.request.user.is_authenticated:
+            return Device.objects.get(pk=self.kwargs['id'], owner_id=self.request.user.id)
+
+    def update(self, request, *args, **kwargs):
+        if len(Device.objects.filter(pk=self.kwargs['id'], owner_id=self.request.user.id)) == 0:
+            return Response("Эта запись не существует", status=status.HTTP_404_NOT_FOUND)
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
+        if len(Device.objects.filter(pk=self.kwargs['id'], owner_id=self.request.user.id)) == 0:
+            return Response("Эта запись не существует", status=status.HTTP_404_NOT_FOUND)
+        return self.destroy(request, *args, **kwargs)
+
+
+class CreateDeviceView(CreateAPIView):
+    permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
+    serializer_class = DeviceSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner_id=self.request.user.id)

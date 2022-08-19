@@ -63,6 +63,13 @@
     }
 }
 
+.home-devices-card__title-link{
+    color: black;
+    &:hover{
+        color: black;
+    }
+}
+
 .home-devices-card__buttons-wrapper {
     display: flex;
     justify-content: space-around;

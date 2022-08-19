@@ -1,46 +1,40 @@
 import { Form, Input, Modal, Select } from "antd";
-import {
-  DeviceType,
-  IDevice,
-  DeviceCreate,
-} from "../../../services/devices/devices";
+import { DeviceType, DeviceCreate } from "../../../services/devices/devices";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/hooks";
-import { updateMyDevicesAsync } from "../../../store/slices/devices";
+import {
+  createMyDevicesAsync,
+} from "../../../store/slices/devices";
 
 const { Option } = Select;
 
-export const HomeModalDeviceUpdate = () => {
+export const HomeModalDeviceCreate = () => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
 
-  const { updateDevice, loadingUpdated } = useAppSelector(
-    (reducers) => reducers.devicesReducer
-  );
-  const onFinish = (values: DeviceCreate) => {
-    dispatch(updateMyDevicesAsync({ ...updateDevice, ...values } as IDevice));
-  };
+  const { createDevice, loadingCreate } = useAppSelector((reducers) => reducers.devicesReducer);
+  const onFinish = (values: DeviceCreate) => dispatch(createMyDevicesAsync(values));
 
   return (
     <Modal
-      title="Редактирование устройства"
+      title="Создание устройства"
       visible={true}
       onOk={() => form.submit()}
-      onCancel={() => dispatch(updateMyDevicesAsync(null))}
-      confirmLoading={loadingUpdated}
-      okText="Изменить"
+      onCancel={() => dispatch(createMyDevicesAsync(null))}
+      confirmLoading={loadingCreate}
+      okText="Добавить"
       cancelText="Отмена"
     >
-      {updateDevice && (
+      {createDevice && (
         <Form
           form={form}
           name="device"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           initialValues={{
-            name: updateDevice?.name,
-            wifi_name: updateDevice?.wifi_name,
-            wifi_password: updateDevice?.wifi_password,
-            type: updateDevice?.type,
+            name: createDevice.name,
+            wifi_name: createDevice.wifi_name,
+            wifi_password: createDevice.wifi_password,
+            type: createDevice.type,
           }}
           onFinish={onFinish}
           onFinishFailed={() => {}}
@@ -53,7 +47,7 @@ export const HomeModalDeviceUpdate = () => {
               { required: true, message: "Пожалуйста, введите название!" },
             ]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
           <Form.Item
             label="Название WiFi сети"

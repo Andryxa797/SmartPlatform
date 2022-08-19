@@ -20,13 +20,14 @@
     align-items: center;
 }
 
-.header-logo__title {
+.header-logo__title_link {
     font-size: 1.75em;
     color: #fed136;
     font-family: Kaushan;
 
     &:hover {
         cursor: pointer;
+        color: #fed136;
     }
 }
 

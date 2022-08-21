@@ -23,7 +23,7 @@ export const Device = () => {
       </div>
       <div className="device-page-management__container ">
         <div className="device-page-management__wrapper">
-          <LedDeviceManagement />
+          <LedDeviceManagement device={device} />
         </div>
       </div>
     </>

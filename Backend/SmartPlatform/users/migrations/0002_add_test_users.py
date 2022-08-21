@@ -31,7 +31,8 @@ def load_test_user_with_device(apps, schema_editor):
     profile_type_test.save()
 
     device_type = apps.get_model("users", "Device")
-    device_type_test = device_type.objects.create(owner_id=user.id, name="Тестовое устройство", wifi_name="TP_Link1602",
+    device_type_test = device_type.objects.create(owner_id=user.id, name="Тестовое устройство",
+                                                  wifi_name="TP-LINK_1608",
                                                   wifi_password="31670456")
     device_type_admin = device_type.objects.create(owner_id=1, name="Тестовое устройство", wifi_name="TP_Link1602",
                                                    wifi_password="31670456")

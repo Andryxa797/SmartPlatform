@@ -33,6 +33,9 @@ class DeviceConsumer(WebsocketConsumer):
                 self.channel_name
             )
             self.accept()
+            self.send(text_data=json.dumps({
+                'message': "new connected"
+            }))
         else:
             self.close()
 
@@ -42,14 +45,12 @@ class DeviceConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+        if self.device:
+            self.send(text_data=json.dumps({
+                'message': "device disconnect"
+            }))
 
-    # Receive message from WebSocket
     def receive(self, text_data):
-        # text_data_json = json.loads(text_data)
-        # message = text_data_json['message']
-        print(text_data)
-
-        # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
@@ -58,11 +59,8 @@ class DeviceConsumer(WebsocketConsumer):
             }
         )
 
-    # Receive message from room group
     def chat_message(self, event):
         message = event['message']
-
-        # Send message to WebSocket
         self.send(text_data=json.dumps({
             'message': message
         }))

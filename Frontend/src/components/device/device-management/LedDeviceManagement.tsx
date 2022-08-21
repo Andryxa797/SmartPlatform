@@ -6,7 +6,7 @@ import { IDevice } from '../../../services/devices/devices';
 interface ILedDeviceManagement {
     device: IDevice;
 }
-interface IMessageWebSocket{
+interface IMessageWebSocket {
     message: string;
 }
 export const LedDeviceManagement = ({ device }: ILedDeviceManagement) => {
@@ -15,22 +15,25 @@ export const LedDeviceManagement = ({ device }: ILedDeviceManagement) => {
     const [loadingDeviceCommand, setLoadingDeviceCommand] = useState(false)
     const [ledStation, setLedStation] = useState(false)
 
-    const { sendMessage, lastMessage, readyState } = useWebSocket(`ws://localhost:8000/ws/device/${device.id}`, {
+    const { sendMessage, lastMessage, readyState } = useWebSocket(`ws://192.168.0.106:8000/ws/device/${device.id}`, {
         queryParams: {
             "_access": `|${localStorage.getItem("_access")}|`,
             "_refresh": `|${localStorage.getItem("_refresh")}|`,
         }
     });
+    useEffect(() => {
+        if (readyState == ReadyState.OPEN) sendMessage("user connect")
+    }, [readyState]);
 
     useEffect(() => {
         if (lastMessage && lastMessage.data) {
             const message: IMessageWebSocket = JSON.parse(lastMessage.data)
             setMessageHistory((prev) => prev.concat(lastMessage))
-            if (message.message === "device connect") {
-                setIsConnectedDevice(true)
-            }
+            if (message.message === "device connect") setIsConnectedDevice(true)
+            if (message.message === "device disconnect") setIsConnectedDevice(true)
             if (message.message === "OK") {
                 setLoadingDeviceCommand(false)
+                setIsConnectedDevice(true)
             }
         }
     }, [lastMessage, setMessageHistory]);
@@ -39,9 +42,14 @@ export const LedDeviceManagement = ({ device }: ILedDeviceManagement) => {
 
     // const handleClickSendMessage = useCallback(() => sendMessage('Hello'), []);
 
-    const handleClickMenageState = (state: boolean)=> {
+    const handleClickMenageState = (state: boolean) => {
         setLoadingDeviceCommand(true)
-        sendMessage("ON")
+        if (state == true) {
+            sendMessage("ON")
+        }
+        if (state == false) {
+            sendMessage("OFF")
+        }
         setLedStation(state)
 
     }
@@ -71,7 +79,13 @@ export const LedDeviceManagement = ({ device }: ILedDeviceManagement) => {
             </ul> */}
             <div>Текущие состояние соединение с сервером: {connectionStatus}</div>
             {isConnectedDevice ? <div>Девайс подключен к сети</div> : <div>Девайс отсутствует</div>}
-            <Switch disabled={!isConnectedDevice} loading={loadingDeviceCommand} checked={ledStation} onChange={handleClickMenageState}/>
+            <Switch disabled={!isConnectedDevice} loading={loadingDeviceCommand} checked={ledStation} onChange={handleClickMenageState} />
+
+            {/* <ul>
+                {messageHistory.map((message, idx) => (
+                    <span key={idx}>{message ? message.data : null}</span>
+                ))}
+            </ul> */}
         </div>
     );
 };

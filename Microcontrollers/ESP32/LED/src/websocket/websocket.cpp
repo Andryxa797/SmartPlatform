@@ -13,7 +13,7 @@ String deserializeWebsocketsMessage(WebsocketsMessage message)
     return parsed["message"];
 }
 
-WebsocketsClient websocketConnect(WebsocketsClient client, MessageCallback callbackMessage, PartialEventCallback callbackEvent)
+void websocketConnect(WebsocketsClient &client, MessageCallback callbackMessage, PartialEventCallback callbackEvent)
 {
     bool connected = client.connect(websockets_host, websockets_port, websockets_path);
     if (connected)
@@ -25,10 +25,9 @@ WebsocketsClient websocketConnect(WebsocketsClient client, MessageCallback callb
     client.onEvent(callbackEvent);
     client.ping();
     Serial.println("Correct initialization has occurred!");
-    return client;
 }
 
-void websocketLoop(WebsocketsClient client, MessageCallback callbackMessage, PartialEventCallback callbackEvent, WebsocketConnectEnum stationConnect)
+void websocketLoop(WebsocketsClient &client, MessageCallback callbackMessage, PartialEventCallback callbackEvent, WebsocketConnectEnum stationConnect)
 {
   client.poll();
   if (stationConnect == WebsocketConnectEnum::Close)

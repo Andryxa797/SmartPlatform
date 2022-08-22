@@ -20,11 +20,7 @@ export const Device = () => {
       <div className="device-page-info__container ">
         <DeviceInfoPreview device={device} />
         <DeviceInfoGeneral device={device} />
-      </div>
-      <div className="device-page-management__container ">
-        <div className="device-page-management__wrapper">
-          <LedDeviceManagement device={device} />
-        </div>
+        <LedDeviceManagement device={device} />
       </div>
     </>
   ) : (

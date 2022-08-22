@@ -16,7 +16,7 @@ enum WebsocketConnectEnum {
 };
 
 String deserializeWebsocketsMessage(WebsocketsMessage message);
-WebsocketsClient websocketConnect(WebsocketsClient client, MessageCallback callbackMessage, PartialEventCallback callbackEvent);
-void websocketLoop(WebsocketsClient client, MessageCallback callbackMessage, PartialEventCallback callbackEvent, WebsocketConnectEnum stationConnect);
+void websocketConnect(WebsocketsClient &client, MessageCallback callbackMessage, PartialEventCallback callbackEvent);
+void websocketLoop(WebsocketsClient &client, MessageCallback callbackMessage, PartialEventCallback callbackEvent, WebsocketConnectEnum stationConnect);
 
 #endif

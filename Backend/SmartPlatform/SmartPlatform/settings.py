@@ -1,5 +1,7 @@
+import os
 from datetime import timedelta
 from pathlib import Path
+from celery import Celery
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&hrw&!%d2py0bb^z7tvp!mxlotwj&0vw(4i0^prj3ha6g0g2tu'
@@ -17,6 +19,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
     'users',
+    'firmware',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +129,13 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_TASK_TRACK_STARTED = True
+
 STATIC_URL = 'static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -1,0 +1,78 @@
+.DeviceInfoGeneral {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 77.7%;
+    height: 100%;
+    min-height: 420px;
+    padding: var(--padding-base);
+
+    border: var(--border-light-gray-sm);
+    border-radius: var(--border-radius-base);
+    background: var(--white-color);
+    box-shadow: var(--box-shadow-base);
+
+    &-Title {
+        text-decoration: underline;
+        text-transform: capitalize;
+
+        color: black;
+
+        font-size: var(--font-size-h1);
+        font-weight: var(--font-weight-medium);
+    }
+
+    &-Date {
+        color: var(--secondary-color);
+
+        font-size: var(--font-size-l);
+        font-style: italic;
+    }
+
+    &-Row {
+        width: 100%;
+        margin: var(--margin-small) 0;
+    }
+
+    &-InputGroup {
+        display: flex;
+    }
+
+    &-ButtonGroup {
+        display: flex;
+
+        width: 100%;
+
+        margin-top: var(--margin-small);
+
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    &-Button {
+        margin-left: var(--margin-small);
+    }
+
+    @media (max-width: 700px) {
+        width: calc(100% - var(--padding-base));
+        margin: var(--margin-small) auto;
+        padding: var(--padding-base);
+
+        &-Info {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 385px) {
+        &-ButtonGroup {
+            flex-direction: column;
+        }
+
+        &-Button {
+            margin-top: var(--margin-small);
+            width: 100%;
+        }
+    }
+}

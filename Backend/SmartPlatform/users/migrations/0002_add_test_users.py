@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import migrations
 from django.contrib.auth.hashers import make_password
+from django.utils import timezone
 
 
 def load_admin(apps, schema_editor):
@@ -11,7 +12,8 @@ def load_admin(apps, schema_editor):
         first_name='Андрей',
         last_name='Васецкий',
         is_superuser=True,
-        is_staff=True
+        is_staff=True,
+        last_login=timezone.now()
     )
     profile_type = apps.get_model("users", "Profile")
     super_user = profile_type.objects.create(user_id=admin.id)

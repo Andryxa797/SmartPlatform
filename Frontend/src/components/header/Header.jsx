@@ -1,33 +1,46 @@
 import { Link } from 'react-router-dom';
-import { RoutesPath } from '../../helpers/routes-path';
+
+import { headerStyle as cls } from '@components/Header/Header.const';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { reinitializeApp } from '../../store/slices/app';
-import { logout as logoutAction} from '../../store/slices/auth';
-import { ReactComponent as Logo } from './../../assert/image/logo.svg'
-
+import { logout as logoutAction } from '../../store/slices/auth';
+import { RoutesPath } from '../../utils/routes-path';
+import logoSVG from './../../assert/image/logo.svg';
+import './Header.scss';
 
 export const Header = () => {
-    var dispatch = useAppDispatch();
-    const { isLogin } = useAppSelector((state) => state.authReducer);
+    const dispatch = useAppDispatch();
+    const { isLogin } = useAppSelector(state => state.auth);
+
     const logout = () => {
-        console.log("sasa");
-        dispatch(logoutAction())
-        dispatch(reinitializeApp())
-    }
+        dispatch(logoutAction());
+        dispatch(reinitializeApp());
+    };
 
     return (
-        <header className='header'>
-            <div className='header-container'>
-                <div className='header-logo'>
-                    <Logo />
-                    <Link to={RoutesPath.Home} className='header-logo__title_link'>SmartPlatform</Link>
+        <header className={cls.root}>
+            <div className={cls.container}>
+                <div className={cls.logo}>
+                    <Link to={RoutesPath.Home}>
+                        <img src={logoSVG} className={cls.image} alt="logoSVG" />
+                    </Link>
+                    <Link to={RoutesPath.Home} className={cls.title}>
+                        SmartPlatform
+                    </Link>
                 </div>
-                {isLogin && <div className='header-auth'>
-                    Добро пожаловать, <span className='header-auth__general'>
-                        <span className='header-auth__general-name'>Андрей</span> | <span className='header-auth__logout' onClick={()=>logout()}>Выход</span>
-                    </span>
-                </div>}
+                {isLogin && (
+                    <div className={cls.auth}>
+                        Добро пожаловать,{' '}
+                        <span>
+                            <span className={cls.text}>Андрей</span> |{' '}
+                            <span className={cls.text} onClick={() => logout()}>
+                                Выход
+                            </span>
+                        </span>
+                    </div>
+                )}
             </div>
         </header>
-    )
-}
+    );
+};

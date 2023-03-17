@@ -7,7 +7,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ('uuid_public', 'create_date',)
+    list_display = ('uuid_public', 'create_date')
 
 
 admin.site.register(Profile, ProfileAdmin)

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from firmware.serializers import FirmwareProgramsSerializer
 from users.models import Profile, Device
 
 
@@ -14,6 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    firmwares = FirmwareProgramsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Device

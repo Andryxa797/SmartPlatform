@@ -1,0 +1,78 @@
+.DeviceManagementLed {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    margin: var(--margin-large) 0;
+    padding: var(--padding-large);
+
+    border: var(--border-light-gray-sm);
+    border-radius: var(--border-radius-base);
+    background: var(--white-color);
+    box-shadow: var(--box-shadow-base);
+
+    &-Title {
+        margin-right: var(--margin-small);
+
+        text-decoration: underline;
+        text-transform: capitalize;
+
+        color: black;
+
+        font-size: var(--font-size-h2);
+        font-weight: var(--font-weight-medium);
+    }
+
+    &-StationConnect {
+        display: flex;
+
+        margin: var(--margin-small) 0;
+        margin-right: var(--margin-small);
+        padding: 0 var(--padding-small);
+
+        color: black;
+
+        font-size: var(--font-size-l);
+        font-weight: var(--font-weight-normal);
+
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    &-StationConnectState {
+        margin-right: var(--margin-small);
+
+        color: black;
+
+        font-size: var(--font-size-l);
+        font-weight: var(--font-weight-normal);
+    }
+
+    &-ButtonsWrapper {
+        display: flex;
+
+        width: 100%;
+        padding: 10px;
+
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-Button {
+        width: 49%;
+    }
+
+    @media (max-width: 700px) {
+        width: calc(100% - var(--padding-base));
+        margin: var(--margin-small) auto;
+        padding: var(--padding-base);
+
+        &-Info {
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 524px) {
+        flex-direction: column;
+    }
+}

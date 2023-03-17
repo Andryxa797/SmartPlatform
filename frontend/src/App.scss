@@ -1,0 +1,46 @@
+@import './constants/fonts/fonts/kaushan';
+@import './constants/fonts/fonts/roboto';
+@import './constants/style';
+
+html body {
+    overflow: auto !important;
+
+    box-sizing: border-box;
+
+    /**
+     * Использовать important не хорошо, но здесь это надо, что бы перебить стили antd 
+     * при открытии модального окна 
+     */
+    width: 100% !important;
+    margin: 0;
+
+    background-color: #f0f2f5;
+
+    font-family: Roboto, sans-serif;
+}
+
+body::-webkit-scrollbar-track {
+    border: 3px solid #fff;
+    background-clip: padding-box;
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+
+    background-color: #f5f5f5;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: rgb(0 0 0 / 20%);
+}
+
+.App {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.shadow {
+    box-shadow: 0 10px 20px rgb(0 0 0 / 10%), 0 20px 40px rgb(0 0 0 / 10%);
+}

@@ -5,6 +5,9 @@ import { Button, Input, Typography, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import { DeviceFrimwareModal } from '@pages/DevicePage/components/DeviceFrimwareModal/DeviceFrimwareModal';
 import { deviceInfoGeneralStyle as cls } from '@pages/DevicePage/components/DeviceInfoGeneral/DeviceInfoGeneral.const';
+import { HomeModalDeviceUpdate } from '@pages/HomePage/components/HomeModalDeviceUpdate/HomeModalDeviceUpdate';
+import { useAppDispatch, useAppSelector } from '@store/hooks/hooks';
+import { startUpdateDevice } from '@store/slices/devices';
 import { formattedDateString } from '@utils/formattedDateString';
 
 import { IDevice } from '../../../../services/devices/devices';
@@ -16,6 +19,10 @@ export interface IDeviceInfoGeneral {
     device: IDevice;
 }
 export const DeviceInfoGeneral = ({ device }: IDeviceInfoGeneral) => {
+    const dispatch = useAppDispatch();
+
+    const { showUpdateDevice } = useAppSelector(reducer => reducer.devices);
+
     const handleClickCopy = (value: string) => {
         navigator.clipboard.writeText(value);
         message.success('Успешно скопировано');
@@ -26,8 +33,12 @@ export const DeviceInfoGeneral = ({ device }: IDeviceInfoGeneral) => {
         <div className={cls.root}>
             <span>
                 <div className={cls.title}>{device.name}</div>
-                <div className={cls.date}>({formattedDateString(device.create_date)})</div>
+                <div className={cls.date}>({formattedDateString({ date: device.create_date })})</div>
             </span>
+            <div className={cls.row}>
+                <Title level={5}>Тип устройства:</Title>
+                <div className={cls.inputGroup}>Управление светодиодом</div>
+            </div>
             <div className={cls.row}>
                 <Title level={5}>Название Wi-Fi сети:</Title>
                 <div className={cls.inputGroup}>
@@ -64,7 +75,7 @@ export const DeviceInfoGeneral = ({ device }: IDeviceInfoGeneral) => {
                 </div>
             </div>
             <div className={cls.buttonGroup}>
-                <Button className={cls.button} type="primary" onClick={() => setVisible(true)}>
+                <Button className={cls.button} type="primary" onClick={() => dispatch(startUpdateDevice(device))}>
                     Изменить
                 </Button>
                 <Button className={cls.button} type="primary" onClick={() => setVisible(true)}>
@@ -74,6 +85,7 @@ export const DeviceInfoGeneral = ({ device }: IDeviceInfoGeneral) => {
             {visible && (
                 <DeviceFrimwareModal deviceId={device.id} firmwares={device.firmwares} setVisible={setVisible} />
             )}
+            {showUpdateDevice && <HomeModalDeviceUpdate />}
         </div>
     );
 };

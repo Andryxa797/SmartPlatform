@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "84cf9e96-156c-43a6-9337-22ab3a50f66d",
+		"name": "Smart Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13260898"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Получение токена",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/token/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление токена",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": {{_refreshToken}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/token/refresh/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Мой профиль",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/accounts/profile/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Мои девайсы",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/accounts/devices/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"devices",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{_accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const postRequest = {",
+					"  url: pm.collectionVariables.get(\"url\") + pm.collectionVariables.get(\"token_endpoint\"),",
+					"  method: \"post\",",
+					"  header: {",
+					"    \"Content-Type\": \"application/json\",",
+					"  },",
+					"  body: {",
+					"      mode: 'raw',",
+					"      raw: JSON.stringify({\"username\": \"test_user\", \"password\": \"test\"})",
+					"",
+					"    }",
+					"};",
+					"",
+					"pm.sendRequest(postRequest, (error, response) => {",
+					"  if (error) {",
+					"    console.log(error);",
+					"  } else {",
+					"    pm.collectionVariables.set(\"_accessToken\", response.json().access);",
+					"    pm.collectionVariables.set(\"_refreshToken\", response.json().refresh);",
+					"  }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "_accessToken",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2MDU0NTA3MCwiaWF0IjoxNjU3OTUzMDcwLCJqdGkiOiI1YzVmYmMwZmU0YWU0NmQ4YTdiOGEwNjM3ZjUwYzBmNyIsInVzZXJfaWQiOjF9.gN6MTX6V79GKjPxX-3Bum16m-5MS1KZkoEkyUzSoi_o",
+			"type": "string"
+		},
+		{
+			"key": "_refreshToken",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3OTUzMzcwLCJpYXQiOjE2NTc5NTMwNzAsImp0aSI6ImRhMDAzNzg5YjliNDQwOTdhZjQ0MzZlMjY0YmI4ZTI0IiwidXNlcl9pZCI6MX0.IK0hdn0w9O0XWBkjlxETgLrMB-XV2uIISKCIi-yV9is",
+			"type": "string"
+		},
+		{
+			"key": "token_endpoint",
+			"value": "/api/token/",
+			"type": "string"
+		}
+	]
+}

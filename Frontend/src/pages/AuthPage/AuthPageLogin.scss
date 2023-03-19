@@ -1,0 +1,26 @@
+.AuthPageLogin {
+    &-Container {
+        width: 360px;
+        margin: auto;
+        margin-top: 200px;
+        padding: var(--padding-base) var(--padding-base);
+        padding-top: 25px;
+
+        border: var(--border-light-gray-sm);
+        border-radius: 10px;
+        border-radius: var(--border-radius-base);
+        background: var(--white-color);
+        box-shadow: var(--box-shadow-base);
+    }
+
+    &-Title {
+        text-align: center;
+
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+    }
+
+    &-Button {
+        width: 100%;
+    }
+}

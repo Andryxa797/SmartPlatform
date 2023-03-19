@@ -1,0 +1,6 @@
+/Backend/venv
+/Backend/SmartPlatform/.idea
+/Backend/SmartPlatform/db.sqlite3
+
+/Frontend/.idea
+/Frontend/node_modules

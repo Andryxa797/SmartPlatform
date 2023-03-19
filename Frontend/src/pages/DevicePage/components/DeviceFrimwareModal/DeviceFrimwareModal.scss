@@ -1,0 +1,30 @@
+.DeviceFrimwareModal {
+    &-List {
+        display: flex;
+        flex-direction: column;
+
+        min-height: 250px;
+    }
+
+    &-ListItem {
+        display: flex;
+
+        margin: var(--margin-small) 0;
+
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-ButtonsGroups {
+        display: flex;
+
+        margin: var(--margin-small) 0;
+
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-Button {
+        margin-left: var(--margin-small);
+    }
+}

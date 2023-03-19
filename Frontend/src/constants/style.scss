@@ -1,0 +1,58 @@
+:root {
+    /* Font sizes */
+    --font-size-l: 16px;
+    --font-size-s: 14px;
+    --font-size-xl: 20px;
+    --font-size-xxl: 22px;
+    --font-size-h1: 32px;
+    --font-size-h2: 24px;
+
+    /* Line heights */
+    --line-height-base: 1.5;
+
+    /* Colors */
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --white-color: #fff;
+    --yellow-color: #fed136;
+    --gray-color: #343a40;
+    --light-gray-color: #eee;
+
+    /* Shadows */
+    --box-shadow-sm: 0 1px 2px rgb(0 0 0 / 7.5%);
+    --box-shadow-base: 0 3px 6px rgb(0 0 0 / 10%);
+    --box-shadow-lg: 0 10px 20px rgb(0 0 0 / 10%);
+    --box-shadow-xxl: 0 10px 20px rgb(0 0 0 / 10%), 0 20px 40px rgb(0 0 0 / 10%);
+
+    /* Spacing */
+    --spacing-base: 1rem;
+    --spacing-small: 0.5rem;
+    --spacing-large: 2rem;
+
+    /* Margins */
+    --margin-base: var(--spacing-base);
+    --margin-small: var(--spacing-small);
+    --margin-large: var(--spacing-large);
+
+    /* Paddings */
+    --padding-base: var(--spacing-base);
+    --padding-small: var(--spacing-small);
+    --padding-large: var(--spacing-large);
+
+    /* Border radii */
+    --border-radius-base: 0.25rem;
+    --border-radius-large: 0.5rem;
+
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* border */
+    --border-light-gray-sm: 1px solid var(--light-gray-color);
+}

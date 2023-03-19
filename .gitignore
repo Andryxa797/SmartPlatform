@@ -5,15 +5,13 @@
 */__pycache__/
 *.cache
 *.egg-info
-pip-wheel-metadata/
-dist/
-build/
 *.pyc
 *.pyo
 *.pyd
 *.log
 
 *.db
+*.db.sqlite3
 *.db.sqlite3-journal
 
 

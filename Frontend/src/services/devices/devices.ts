@@ -82,4 +82,16 @@ export class DevicesService {
                 throw new TypeError();
             });
     }
+
+    static getDevice(id: number): Promise<IDevice> {
+        return API.get<IDevice>('/api/accounts/device/' + id)
+            .then(response => {
+                if (response.status !== 200) throw new TypeError();
+                return response.data;
+            })
+            .catch(() => {
+                console.log('Ошибка загрузки устройств!');
+                throw new TypeError();
+            });
+    }
 }

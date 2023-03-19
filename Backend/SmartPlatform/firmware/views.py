@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -23,8 +25,14 @@ class CreateFirmware(APIView):
         if device.firmwares.count() >= 5:
             return Response({'status': 'error', 'message': 'limit'})
 
-        create_firmware(request.data['id'], self.request.user.id)
-        serializer = DeviceSerializer(device)
+        firmware = FirmwarePrograms()
+        firmware.success = True
+        firmware.create_date = datetime.now()
+        firmware.device = device
+        firmware.save()
+
+        create_firmware.delay(request.data['id'], firmware.pk)
+        serializer = DeviceSerializer(device, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -40,6 +48,7 @@ class CreateFirmware(APIView):
             return Response({'status': 'error', 'message': 'forbidden'})
 
         firmware.delete()
-        serializer = DeviceSerializer(Device.objects.get(pk=firmware.device_id, owner_id=self.request.user.id))
+        serializer = DeviceSerializer(Device.objects.get(pk=firmware.device_id, owner_id=self.request.user.id),
+                                      context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)

@@ -24,7 +24,11 @@
         justify-content: space-between;
     }
 
-    &-Button {
+    &-ButtonsGroupsItem {
         margin-left: var(--margin-small);
+    }
+
+    &-Button {
+        margin: var(--margin-small) 0;
     }
 }

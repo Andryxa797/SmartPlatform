@@ -14,6 +14,7 @@ interface IDevicesState {
     loadingUpdated: boolean;
     loadingCreate: boolean;
     loadingDelete: boolean;
+    loadingDevice: boolean;
     loadingFirmwareCreate: boolean;
     loadingFirmwareDelete: boolean;
     errorFlag: boolean | null;
@@ -30,6 +31,7 @@ const initialState: IDevicesState = {
     loadingUpdated: false,
     loadingCreate: false,
     loadingDelete: false,
+    loadingDevice: false,
     loadingFirmwareCreate: false,
     loadingFirmwareDelete: false,
     errorFlag: null,
@@ -42,6 +44,7 @@ export const updateMyDevicesAsync = createAsyncThunk('devices/device/update', as
 export const createMyDevicesAsync = createAsyncThunk('devices/device/create', async (data: DeviceCreate | null) =>
     data === null ? null : DevicesService.createMyDevices(data)
 );
+export const getDeviceAsync = createAsyncThunk('devices/device', async (id: number) => DevicesService.getDevice(id));
 export const deleteMyDevicesAsync = createAsyncThunk('devices/device/delete', async (data: IDevice | null) =>
     data === null ? null : DevicesService.deleteMyDevices(data)
 );
@@ -116,6 +119,25 @@ export const devicesReducer = createSlice({
             .addCase(createMyDevicesAsync.rejected, state => {
                 state.errorFlag = !state.errorFlag;
                 state.loadingCreate = false;
+            })
+
+            /* Получение девайса по id */
+            .addCase(getDeviceAsync.pending, state => {
+                state.loadingDevice = true;
+            })
+            .addCase(getDeviceAsync.fulfilled, (state, action) => {
+                const payloadId = action.payload?.id;
+                if (action.payload) {
+                    state.devices = state.devices.map(device => (device.id === payloadId ? action.payload : device));
+                    if (state?.currentDevice?.id === action.payload.id) {
+                        state.currentDevice = action.payload;
+                    }
+                }
+                state.loadingDevice = false;
+            })
+            .addCase(getDeviceAsync.rejected, state => {
+                state.errorFlag = !state.errorFlag;
+                state.loadingDevice = false;
             })
 
             /* Удаление устройства */

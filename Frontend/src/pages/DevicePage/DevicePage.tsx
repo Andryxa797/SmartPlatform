@@ -4,7 +4,6 @@ import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 
 import { devicePageStyle as cls } from '@pages/DevicePage/DevicePage.const';
 import { DeviceInfoGeneral } from '@pages/DevicePage/components/DeviceInfoGeneral/DeviceInfoGeneral';
-import { DeviceInfoPreview } from '@pages/DevicePage/components/DeviceInfoPreview/DeviceInfoPreview';
 import { DeviceManagementLed } from '@pages/DevicePage/components/DeviceManagementLed/DeviceManagementLed';
 import { DeviceStationConnect } from '@pages/DevicePage/components/DeviceStationConnect/DeviceStationConnect';
 import { useAppDispatch, useAppSelector } from '@store/hooks/hooks';
@@ -34,7 +33,6 @@ export const DevicePage = () => {
     return device ? (
         <div className={cls.root}>
             <div className={cls.info}>
-                <DeviceInfoPreview device={device} />
                 <DeviceInfoGeneral device={device} />
             </div>
             <div>

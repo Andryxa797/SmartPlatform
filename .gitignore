@@ -1,6 +1,21 @@
 /Backend/venv
 /Backend/SmartPlatform/.idea
-/Backend/SmartPlatform/db.sqlite3
+/Backend/SmartPlatform/media
+
+*/__pycache__/
+*.cache
+*.egg-info
+pip-wheel-metadata/
+dist/
+build/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+*.db
+*.db.sqlite3-journal
+
 
 /Frontend/.idea
 /Frontend/node_modules

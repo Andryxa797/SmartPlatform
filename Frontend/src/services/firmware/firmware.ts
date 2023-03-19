@@ -5,7 +5,7 @@ import { API } from '../base';
 export interface IFirmware {
     id: number;
     device: number;
-    success: boolean;
+    status: 'success' | 'loading' | 'error';
     create_date: string;
     programm: string;
 }

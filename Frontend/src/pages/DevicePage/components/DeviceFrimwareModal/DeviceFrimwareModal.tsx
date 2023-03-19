@@ -1,5 +1,6 @@
 import { Button, Empty, Modal } from 'antd';
 
+import { StatusLoadIcon } from '@components/StatusLoadIcon/StatusLoadIcon';
 import { deviceFrimwareModalStyle as cls } from '@pages/DevicePage/components/DeviceFrimwareModal/DeviceFrimwareModal.const';
 import { IFirmware } from '@services/firmware/firmware';
 import { useAppDispatch, useAppSelector } from '@store/hooks/hooks';
@@ -33,7 +34,8 @@ export const DeviceFrimwareModal = (props: IDeviceFrimwareModal) => {
                     {firmwares.length !== 0 ? (
                         firmwares.map(el => (
                             <div key={el.id} className={cls.listItem}>
-                                {formattedDateString(el.create_date)}
+                                <StatusLoadIcon status={el.status} />
+                                <i>{formattedDateString({ date: el.create_date, withTime: true })}</i>
                                 <div className={cls.buttonsGroup}>
                                     <Button className={cls.button} href={el.programm} download>
                                         Скачать

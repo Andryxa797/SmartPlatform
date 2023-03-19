@@ -13,6 +13,19 @@ def get_path_by_type(type):
     return "Unknown type"
 
 
+def get_pio_command(device):
+    device_id = device.id
+    public = device.uuid_public
+    private = device.uuid_private
+
+    wifi_password = "PASSWORD_WIFI=\"{}\"".format(device.wifi_password)
+    wifi_name = "SSID_WIFI=\"{}\"".format(device.wifi_name)
+    websocket_path = "WEBSOCKET_PATH=\"/ws/device/{}?uuid_public=^|{}^|^&uuid_private=^|{}^|\"".format(device_id,
+                                                                                                       public,
+                                                                                                       private)
+    return "set {} && set {} && set {} && pio run".format(wifi_password, wifi_name, websocket_path)
+
+
 current_dir = os.getcwd()
 
 
@@ -27,7 +40,8 @@ def create_firmware(device_id, user_id):
     target_dir = os.path.join(current_dir, path_by_type)
     os.chdir(target_dir)
 
-    os.system('pio run')
+    command = get_pio_command(device)
+    os.system(command)
 
     pio_dir = os.path.join(target_dir, '.pio')
     os.chdir(pio_dir)

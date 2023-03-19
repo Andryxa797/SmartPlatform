@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { AuthService } from './auth/auth';
+import { AuthService } from '@services/auth/auth';
 
 const API = axios.create({
     baseURL: 'http://localhost:8000/',

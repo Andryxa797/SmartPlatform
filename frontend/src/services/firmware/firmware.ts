@@ -1,6 +1,5 @@
+import { API } from '@services/base';
 import { IDevice } from '@services/devices/devices';
-
-import { API } from '../base';
 
 export interface IFirmware {
     id: number;

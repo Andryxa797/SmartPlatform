@@ -16,7 +16,7 @@ class CreateFirmware(APIView):
     def post(self, request):
 
         if Device.objects.filter(pk=request.data['id'], owner_id=self.request.user.id).exists() is False:
-            return Response({'status': 'error', 'message': 'forbidden'})
+            return Response({'status': 'error', 'message': 'forbidden'}, status=status.HTTP_403_FORBIDDEN)
 
         device = Device.objects.get(pk=request.data['id'], owner_id=self.request.user.id)
 
@@ -31,7 +31,7 @@ class CreateFirmware(APIView):
     def delete(self, request):
 
         if FirmwarePrograms.objects.filter(pk=request.query_params['id-firmware']).exists() is False:
-            return Response({'status': 'error', 'message': 'forbidden'})
+            return Response({'status': 'error', 'message': 'forbidden'}, status=status.HTTP_403_FORBIDDEN)
 
         firmware = FirmwarePrograms.objects.get(pk=request.query_params['id-firmware'])
         device = Device.objects.filter(pk=firmware.device_id, owner_id=self.request.user.id)

@@ -15,7 +15,7 @@ String deserializeWebsocketsMessage(WebsocketsMessage message)
 
 void websocketConnect(WebsocketsClient &client, MessageCallback callbackMessage, PartialEventCallback callbackEvent)
 {
-    bool connected = client.connect(websockets_host, websockets_port, websockets_path);
+    bool connected = client.connect(websockets_host, websockets_port, WEBSOCKET_PATH);
     if (connected)
     {
         client.send("device connect");

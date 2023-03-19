@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { AuthService } from '../../services/auth/auth';
+import { AuthService } from '@services/auth/auth';
 
 interface IAuth {
     isLogin: boolean;

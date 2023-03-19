@@ -8,6 +8,7 @@ export interface IFirmware {
     status: 'success' | 'loading' | 'error';
     create_date: string;
     programm: string;
+    programm_absolute_url: string;
 }
 
 export class FirmwareService {

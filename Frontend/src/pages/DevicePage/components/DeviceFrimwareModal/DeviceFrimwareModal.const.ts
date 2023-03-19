@@ -7,5 +7,6 @@ export const deviceFrimwareModalStyle = {
     list: deviceFrimwareModal('List'),
     listItem: deviceFrimwareModal('ListItem'),
     buttonsGroup: deviceFrimwareModal('ButtonsGroup'),
+    buttonsGroupItem: deviceFrimwareModal('ButtonsGroupsItem'),
     button: deviceFrimwareModal('Button'),
 };

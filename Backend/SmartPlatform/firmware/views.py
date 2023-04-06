@@ -32,6 +32,7 @@ class CreateFirmware(APIView):
         firmware.save()
 
         create_firmware.delay(request.data['id'], firmware.pk)
+        # create_firmware(request.data['id'], firmware.pk)
         serializer = DeviceSerializer(device, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)

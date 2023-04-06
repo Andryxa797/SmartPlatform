@@ -2,8 +2,10 @@ import axios from 'axios';
 
 import { AuthService } from './auth/auth';
 
+export const BASE_URL = '192.168.0.107';
+
 const API = axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: `http://${BASE_URL}:8000/`,
     headers: { Authorization: 'Bearer ' },
 });
 

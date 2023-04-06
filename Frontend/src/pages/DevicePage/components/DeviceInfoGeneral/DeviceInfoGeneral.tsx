@@ -42,35 +42,35 @@ export const DeviceInfoGeneral = ({ device }: IDeviceInfoGeneral) => {
             <div className={cls.row}>
                 <Title level={5}>Название Wi-Fi сети:</Title>
                 <div className={cls.inputGroup}>
-                    <Input value={device.wifi_name} />
+                    <Input value={device.wifi_name} autoComplete="off" readOnly />
                     <Button icon={<CopyOutlined />} onClick={() => handleClickCopy(device.wifi_name)} />
                 </div>
             </div>
             <div className={cls.row}>
                 <Title level={5}>Пароль Wi-Fi сети:</Title>
                 <div className={cls.inputGroup}>
-                    <Input.Password value={device.wifi_password} />
+                    <Input.Password value={device.wifi_password} autoComplete="off" readOnly />
                     <Button icon={<CopyOutlined />} onClick={() => handleClickCopy(device.wifi_password)} />
                 </div>
             </div>
             <div className={cls.row}>
                 <Title level={5}>Публичный ключ:</Title>
                 <div className={cls.inputGroup}>
-                    <Input.Password value={device.uuid_public} />
+                    <Input.Password value={device.uuid_public} autoComplete="off" readOnly />
                     <Button icon={<CopyOutlined />} onClick={() => handleClickCopy(device.uuid_public)} />
                 </div>
             </div>
             <div className={cls.row}>
                 <Title level={5}>Приватный ключ:</Title>
                 <div className={cls.inputGroup}>
-                    <Input.Password value={device.uuid_private} />
+                    <Input.Password value={device.uuid_private} autoComplete="off" readOnly />
                     <Button icon={<CopyOutlined />} onClick={() => handleClickCopy(device.uuid_private)} />
                 </div>
             </div>
             <div className={cls.row}>
                 <Title level={5}>Тип устройства:</Title>
                 <div className={cls.inputGroup}>
-                    <Input.Password value={device.uuid_private} />
+                    <Input.Password value={device.uuid_private} autoComplete="off" readOnly />
                     <Button icon={<CopyOutlined />} onClick={() => handleClickCopy(device.uuid_private)} />
                 </div>
             </div>

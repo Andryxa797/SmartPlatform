@@ -6,6 +6,7 @@ import { devicePageStyle as cls } from '@pages/DevicePage/DevicePage.const';
 import { DeviceInfoGeneral } from '@pages/DevicePage/components/DeviceInfoGeneral/DeviceInfoGeneral';
 import { DeviceManagementLed } from '@pages/DevicePage/components/DeviceManagementLed/DeviceManagementLed';
 import { DeviceStationConnect } from '@pages/DevicePage/components/DeviceStationConnect/DeviceStationConnect';
+import { BASE_URL } from '@services/base';
 import { useAppDispatch, useAppSelector } from '@store/hooks/hooks';
 import { setCurrentDevice } from '@store/slices/devices';
 
@@ -18,7 +19,7 @@ export const DevicePage = () => {
 
     const [isConnectedDevice, setIsConnectedDevice] = useState(false);
 
-    const { sendMessage, lastMessage, readyState } = useWebSocket(`ws://192.168.0.106:8000/ws/device/${device?.id}`, {
+    const { sendMessage, lastMessage, readyState } = useWebSocket(`ws://${BASE_URL}:8000/ws/device/${device?.id}`, {
         queryParams: {
             _access: `|${localStorage.getItem('_access')}|`,
             _refresh: `|${localStorage.getItem('_refresh')}|`,

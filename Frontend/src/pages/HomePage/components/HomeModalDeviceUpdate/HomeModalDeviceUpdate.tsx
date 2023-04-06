@@ -38,28 +38,28 @@ export const HomeModalDeviceUpdate = () => {
                         type: updateDevice?.type,
                     }}
                     onFinish={onFinish}
-                    autoComplete="off"
+                    autoComplete="new-password"
                 >
                     <Form.Item
                         label="Название девайса"
                         name="name"
                         rules={[{ required: true, message: 'Пожалуйста, введите название!' }]}
                     >
-                        <Input />
+                        <Input autoComplete="new-password" />
                     </Form.Item>
                     <Form.Item
                         label="Название WiFi сети"
                         name="wifi_name"
                         rules={[{ required: true, message: 'Пожалуйста, введите название!' }]}
                     >
-                        <Input />
+                        <Input autoComplete="new-password" />
                     </Form.Item>
                     <Form.Item
                         label="Пароль WiFi сети"
                         name="wifi_password"
                         rules={[{ required: true, message: 'Пожалуйста, введите название!' }]}
                     >
-                        <Input.Password />
+                        <Input.Password autoComplete="new-password" />
                     </Form.Item>
                     <Form.Item
                         label="Тип устройства"
